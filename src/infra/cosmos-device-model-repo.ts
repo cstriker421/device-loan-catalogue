@@ -1,6 +1,5 @@
 // Infrastructure layer: Cosmos DB adapter for the DeviceModelRepo port
-// All configuration arrives through Options
-
+// All configuration arrives through Options and not from the environment here
 import { CosmosClient } from '@azure/cosmos';
 import type { Container } from '@azure/cosmos';
 import { DefaultAzureCredential } from '@azure/identity';
@@ -12,12 +11,13 @@ export type CosmosDeviceModelRepoOptions = {
   endpoint: string;
   database: string;
   container: string;
-  /** Access key for local development (DefaultAzureCredential is used if ommited) */
+  /** Access key for local development (DefaultAzureCredential is used if omitted) */
   key?: string;
 };
 
+/** The shape stored in the Cosmos container, kept deliberately separate from the domain type */
 type DeviceModelDocument = {
-  id: string;
+  id: string; // also the partition key (/id)
   brand: string;
   model: string;
   category: string;
@@ -84,5 +84,12 @@ export class CosmosDeviceModelRepo implements DeviceModelRepo {
       }
       throw error;
     }
+  }
+
+  async list(): Promise<DeviceModel[]> {
+    const { resources } = await this.container.items
+      .query<DeviceModelDocument>('SELECT c.id, c.brand, c.model, c.category FROM c')
+      .fetchAll();
+    return resources.map(toDomain);
   }
 }
