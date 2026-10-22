@@ -43,7 +43,7 @@ const isText = (value: unknown, maxLength: number): value is string =>
   value.trim().length > 0 &&
   value.trim().length <= maxLength;
 
-/** Validates the input and returns an immutable DeviceModel. */
+/** Validates the input and returns an immutable DeviceModel */
 export function createDeviceModel(input: DeviceModelInput): DeviceModel {
   const issues: string[] = [];
 

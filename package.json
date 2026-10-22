@@ -8,6 +8,7 @@
     "watch": "tsc -w",
     "clean": "rimraf dist",
     "prestart": "npm run clean && npm run build",
+    "seed": "npm run build && node dist/src/seed/seed.js",
     "start": "func start",
     "test": "echo \"No tests yet...\""
   },
