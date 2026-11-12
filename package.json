@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "device-loan-catalogue",
   "version": "1.0.0",
   "description": "",
   "main": "dist/src/functions/*.js",
@@ -18,8 +18,11 @@
     "@azure/identity": "^4.14.0"
   },
   "devDependencies": {
-    "@types/node": "18.x",
+    "@types/node": "^22.20.5",
     "rimraf": "^5.0.0",
     "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }
