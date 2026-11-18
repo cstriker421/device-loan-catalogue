@@ -49,4 +49,4 @@ __blobstorage__
 __queuestorage__
 __tablestorage__
 __azurite_db*__.json
-AzuriteConfig
+AzuriteConfigcoverage/
